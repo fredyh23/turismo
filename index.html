@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conoce Nariño | Turismo, Cultura y Gastronomía</title>
+    <!-- Bootstrap 5.3 CSS desde CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Google Fonts para tipografía limpia y elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+       VARIABLES DE DISEÑO (Paleta inspirada en los Andes, volcanes y el Pacífico)
+       ========================================================================== */
+        :root {
+            --color-primario: #1b4332;
+            /* Verde bosque andino profundo */
+            --color-secundario: #2d6a4f;
+            /* Verde esmeralda de páramo */
+            --color-acento: #d97706;
+            /* Ocre cálido / Barniz de Pasto */
+            --color-acento-hover: #b45309;
+            /* Ocre oscuro para hover */
+            --color-fondo-claro: #f8faf9;
+            /* Blanco humo natural */
+            --color-fondo-alterno: #eef3f0;
+            /* Verde grisáceo muy suave */
+            --color-texto: #1f2937;
+            /* Gris carbón legible */
+            --color-texto-suave: #4b5563;
+            /* Gris medio para descripciones */
+            --color-respaldo-img: #2d6a4f;
+            /* Color base si falla la carga de imagen */
+            --sombra-tarjeta: 0 4px 15px rgba(27, 67, 50, 0.08);
+            --sombra-hover: 0 12px 24px rgba(27, 67, 50, 0.16);
+        }
+
+        /* ==========================================================================
+       ESTILOS GENERALES Y TIPOGRAFÍA
+       ========================================================================== */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 72px;
+            /* Compensa la altura del navbar fijo */
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--color-texto);
+            background-color: var(--color-fondo-claro);
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        .navbar-brand {
+            font-family: 'Merriweather', serif;
+        }
+
+        /* ==========================================================================
+       BARRA DE NAVEGACIÓN (Navbar)
+       ========================================================================== */
+        .navbar-narino {
+            background-color: rgba(27, 67, 50, 0.96);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-narino .navbar-brand {
+            color: #ffffff;
+            font-size: 1.35rem;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-narino .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            margin: 0 0.35rem;
+            padding: 0.5rem 0.85rem;
+            border-radius: 6px;
+            transition: color 0.25s ease, background-color 0.25s ease;
+        }
+
+        .navbar-narino .nav-link:hover,
+        .navbar-narino .nav-link.active {
+            color: #ffffff;
+            background-color: var(--color-acento);
+        }
+
+        /* ==========================================================================
+       ENCABEZADO PRINCIPAL (Hero Section)
+       ========================================================================== */
+        .hero-section {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            background-color: var(--color-primario);
+            background-image: linear-gradient(rgba(16, 42, 31, 0.62),
+                    rgba(27, 67, 50, 0.78)),
+                url('https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            padding-top: 76px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.45);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+            max-width: 720px;
+            margin: 0 auto 2rem auto;
+            color: #f3f4f6;
+            font-weight: 400;
+        }
+
+        .btn-narino {
+            background-color: var(--color-acento);
+            border-color: var(--color-acento);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.75rem 1.8rem;
+            border-radius: 50px;
+            transition: background-color 0.25s ease, transform 0.2s ease;
+        }
+
+        .btn-narino:hover {
+            background-color: var(--color-acento-hover);
+            border-color: var(--color-acento-hover);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+       SECCIONES Y TARJETAS (Cards)
+       ========================================================================== */
+        .seccion-turistica {
+            padding: 5rem 0;
+        }
+
+        .seccion-alterna {
+            background-color: var(--color-fondo-alterno);
+        }
+
+        .titulo-seccion {
+            color: var(--color-primario);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .separador-titulo {
+            width: 65px;
+            height: 4px;
+            background-color: var(--color-acento);
+            margin: 0 auto 1.2rem auto;
+            border-radius: 2px;
+        }
+
+        .subtitulo-seccion {
+            color: var(--color-texto-suave);
+            max-width: 650px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .card-narino {
+            border: none;
+            border-radius: 14px;
+            overflow: hidden;
+            background-color: #ffffff;
+            box-shadow: var(--sombra-tarjeta);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .card-narino:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        /* Contenedor de imagen con respaldo visual si falla la carga */
+        .card-img-wrapper {
+            position: relative;
+            height: 220px;
+            background-color: var(--color-respaldo-img);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .card-narino:hover .card-img-wrapper img {
+            transform: scale(1.04);
+        }
+
+        /* Estilo aplicado dinámicamente por JS si una imagen no carga */
+        .img-fallback-box {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .badge-categoria {
+            background-color: rgba(45, 106, 79, 0.12);
+            color: var(--color-primario);
+            font-weight: 600;
+            font-size: 0.78rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-narino .card-title {
+            color: var(--color-primario);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .card-narino .card-text {
+            color: var(--color-texto-suave);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+       PIE DE PÁGINA (Footer)
+       ========================================================================== */
+        footer {
+            background-color: var(--color-primario);
+            color: rgba(255, 255, 255, 0.88);
+            padding: 2rem 0;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbarPrincipal" data-bs-offset="90" tabindex="0">
+
+    <!-- ========================================================================
+       BARRA DE NAVEGACIÓN (Bootstrap 5 Navbar)
+       ======================================================================== -->
+    <nav id="navbarPrincipal" class="navbar navbar-expand-lg navbar-dark navbar-narino fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#inicio">Conoce Nariño</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavegacion"
+                aria-controls="menuNavegacion" aria-expanded="false" aria-label="Alternar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuNavegacion">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sitios-turisticos">Sitios turísticos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comida-tipica">Comida típica</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#fiestas-eventos">Fiestas y eventos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================================
+       ENCABEZADO PRINCIPAL (Hero)
+       ======================================================================== -->
+    <header id="inicio" class="hero-section">
+        <div class="container px-4">
+            <h1 class="hero-title">Conoce Nariño</h1>
+            <p class="hero-subtitle">
+                Donde los volcanes andinos abrazan lagunas sagradas, el Pacífico susurra en sus costas y la tradición
+                artesanal cobra vida en cada rincón del sur de Colombia.
+            </p>
+            <a href="#sitios-turisticos" class="btn btn-narino shadow">Explorar destinos</a>
+        </div>
+    </header>
+
+    <!-- ========================================================================
+       CONTENIDO PRINCIPAL
+       ======================================================================== -->
+    <main>
+
+        <!-- SECCIÓN 1: SITIOS TURÍSTICOS -->
+        <section id="sitios-turisticos" class="seccion-turistica">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="titulo-seccion">Sitios turísticos</h2>
+                    <div class="separador-titulo"></div>
+                    <p class="subtitulo-seccion">
+                        Maravillas arquitectónicas y paisajes naturales que hacen de Nariño un destino único en
+                        Sudamérica.
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Tarjeta 1: Santuario de Las Lajas -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Santuario_de_Las_Lajas,_Ipiales,_Colombia,_2015-07-21,_DD_21-23_HDR.JPG?width=800"
+                                    alt="Santuario de Nuestra Señora de Las Lajas sobre el cañón del río Guáitara en Ipiales">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">Ipiales · Arquitectura</span>
+                                <h3 class="card-title">Santuario de Las Lajas</h3>
+                                <p class="card-text">
+                                    Majestuoso templo de estilo neogótico construido sobre el cañón del río Guáitara.
+                                    Reconocido mundialmente como una de las iglesias más hermosas del planeta por su
+                                    puente de piedra y su entorno natural.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Tarjeta 2: Laguna de la Cocha -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Laguna_de_la_Cocha_2.jpg?width=800"
+                                    alt="Vista panorámica de la Laguna de la Cocha y sus embarcaderos en El Encano, Pasto">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">Pasto · Naturaleza</span>
+                                <h3 class="card-title">Laguna de la Cocha</h3>
+                                <p class="card-text">
+                                    Ubicada en el corregimiento de El Encano, es el segundo cuerpo de agua natural más
+                                    grande de Colombia. Sus casas de madera estilo suizo y la Isla de La Corota ofrecen
+                                    paseos en lancha inolvidables.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Tarjeta 3: Volcán Galeras -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Volcan_Galeras.jpg?width=800"
+                                    alt="Cumbre del Volcán Galeras dominando el paisaje andino de San Juan de Pasto">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">Santuario de Flora y Fauna</span>
+                                <h3 class="card-title">Volcán Galeras</h3>
+                                <p class="card-text">
+                                    El imponente guardián de San Juan de Pasto se alza a más de 4.200 metros sobre el
+                                    nivel del mar, rodeado de ecosistemas de páramo, frailejones y miradores con vistas
+                                    panorámicas de los Andes.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: COMIDA TÍPICA -->
+        <section id="comida-tipica" class="seccion-turistica seccion-alterna">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="titulo-seccion">Comida típica</h2>
+                    <div class="separador-titulo"></div>
+                    <p class="subtitulo-seccion">
+                        Sabores ancestrales que combinan la herencia indígena de los Pastos y Quillacingas con los
+                        frutos del campo y el mar.
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Tarjeta 1: Cuy Asado -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cuy_asado.jpg?width=800"
+                                    alt="Plato tradicional de cuy asado acompañado de papas y crispetas en Nariño">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">Plato Insignia</span>
+                                <h3 class="card-title">Cuy Asado</h3>
+                                <p class="card-text">
+                                    El plato más emblemático de la gastronomía nariñense. Preparado lentamente a las
+                                    brasas hasta lograr una piel crocante, se sirve tradicionalmente con papas cocidas,
+                                    ají de maní y crispetas.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Tarjeta 2: Helado de Paila -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80"
+                                    alt="Helado artesanal de frutas naturales preparado al estilo tradicional de paila">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">Postre Artesanal</span>
+                                <h3 class="card-title">Helado de Paila</h3>
+                                <p class="card-text">
+                                    Elaborado de forma artesanal batiendo jugo natural de frutas —como mora, lulo o
+                                    guanábana— dentro de una paila de bronce asentada sobre hielo picado y sal gruesa.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Tarjeta 3: Empanadas de Añejo -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1604467715878-83e57e8bc129?auto=format&fit=crop&w=800&q=80"
+                                    alt="Empanadas tradicionales doradas y crujientes servidas con ají casero">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">Tradición Local</span>
+                                <h3 class="card-title">Empanadas de Añejo</h3>
+                                <p class="card-text">
+                                    Crujientes empanadas hechas con masa de maíz fermentado (añejo), rellenas de guiso
+                                    de arroz, arveja y carne desmechada, acompañadas siempre de un buen ají casero y
+                                    café pasado.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: FIESTAS Y EVENTOS -->
+        <section id="fiestas-eventos" class="seccion-turistica">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="titulo-seccion">Fiestas y eventos</h2>
+                    <div class="separador-titulo"></div>
+                    <p class="subtitulo-seccion">
+                        Celebraciones llenas de color, música, teatro y patrimonio cultural que reúnen a propios y
+                        visitantes.
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Tarjeta 1: Carnaval de Negros y Blancos -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Carnaval_de_Negros_y_Blancos_Pasto.jpg?width=800"
+                                    alt="Monumental carroza artesanal desfilando en el Carnaval de Negros y Blancos de Pasto">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">2 al 7 de Enero · Patrimonio UNESCO</span>
+                                <h3 class="card-title">Carnaval de Negros y Blancos</h3>
+                                <p class="card-text">
+                                    Patrimonio Cultural Inmaterial de la Humanidad. Celebrado en Pasto cada enero,
+                                    destaca por el juego de cosmético negro, talco blanco y el Desfile Magno de
+                                    monumentales carrozas artesanales.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Tarjeta 2: El Galeón de Tumaco (Carnaval del Fuego) -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+                                    alt="Costa pacífica y playas tropicales de Tumaco durante las festividades del mar">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">Costa Pacífica · Tumaco</span>
+                                <h3 class="card-title">El Galeón de Tumaco</h3>
+                                <p class="card-text">
+                                    Tradicional desfile náutico y festividad del Carnaval del Fuego en la "Perla del
+                                    Pacífico", donde embarcaciones decoradas iluminan la bahía al ritmo de marimba,
+                                    cununos y currulao.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Tarjeta 3: Festival Internacional de Teatro de Pasto -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <article class="card card-narino">
+                            <div class="card-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=800&q=80"
+                                    alt="Escenario teatral iluminado representando las artes escénicas en San Juan de Pasto">
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge-categoria">Arte y Escena · Pasto</span>
+                                <h3 class="card-title">Festival Internacional de Teatro</h3>
+                                <p class="card-text">
+                                    Encuentro cultural que convierte plazas, parques y escenarios históricos como el
+                                    Teatro Imperial en vitrinas para compañías teatrales nacionales e internacionales.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================================================
+       PIE DE PÁGINA (Footer)
+       ======================================================================== -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-1 fw-semibold">Conoce Nariño — Guía Turística y Cultural</p>
+            <p class="mb-0 small opacity-75">
+                &copy; <span id="anioActual"></span> Conoce Nariño. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS Bundle (incluye Popper) desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- ========================================================================
+       JAVASCRIPT PERSONALIZADO
+       ======================================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Generar el año actual automáticamente en el pie de página
+            const spanAnio = document.getElementById('anioActual');
+            if (spanAnio) {
+                spanAnio.textContent = new Date().getFullYear();
+            }
+
+            // 2. Manejo de respaldo visual si alguna imagen externa no logra cargar
+            const mostrarRespaldo = (img) => {
+                const contenedor = img.parentElement;
+                if (!contenedor || contenedor.querySelector('.img-fallback-box')) return;
+                const textoAlternativo = img.getAttribute('alt') || 'Imagen de Nariño';
+                contenedor.innerHTML = `<div class="img-fallback-box">${textoAlternativo}</div>`;
+            };
+
+            const imagenesTarjetas = document.querySelectorAll('.card-img-wrapper img');
+            imagenesTarjetas.forEach((img) => {
+                img.addEventListener('error', () => mostrarRespaldo(img));
+                // Verifica si la imagen ya falló antes de registrar el evento
+                if (img.complete && img.naturalWidth === 0) {
+                    mostrarRespaldo(img);
+                }
+            });
+
+            // 3. Cerrar automáticamente el menú hamburguesa en móviles al hacer clic en un enlace
+            const enlacesNav = document.querySelectorAll('#menuNavegacion .nav-link');
+            const menuColapsable = document.getElementById('menuNavegacion');
+
+            enlacesNav.forEach((enlace) => {
+                enlace.addEventListener('click', () => {
+                    if (menuColapsable.classList.contains('show')) {
+                        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(menuColapsable);
+                        bsCollapse.hide();
+                    }
+                });
+            });
+
+            // 4. Resaltar el enlace activo según la sección visible en pantalla (IntersectionObserver)
+            const secciones = document.querySelectorAll('header[id], section[id]');
+            const opcionesObservador = {
+                root: null,
+                rootMargin: '-35% 0px -55% 0px',
+                threshold: 0
+            };
+
+            const observadorSecciones = new IntersectionObserver((entradas) => {
+                entradas.forEach((entrada) => {
+                    if (entrada.isIntersecting) {
+                        const idActual = entrada.target.getAttribute('id');
+                        enlacesNav.forEach((link) => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${idActual}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, opcionesObservador);
+
+            secciones.forEach((seccion) => observadorSecciones.observe(seccion));
+        });
+    </script>
+</body>
+
+</html>
